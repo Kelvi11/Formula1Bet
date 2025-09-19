@@ -1,4 +1,4 @@
-package com.sporty.Formula1Bet;
+package com.sporty.formula1bet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

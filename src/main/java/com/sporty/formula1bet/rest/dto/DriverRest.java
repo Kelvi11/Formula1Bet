@@ -3,7 +3,7 @@ package com.sporty.formula1bet.rest.dto;
 import lombok.Data;
 
 @Data
-public class DriverDto {
+public class DriverRest {
 
     private int numberId;
     private String fullName;

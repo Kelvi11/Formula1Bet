@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class EventDto {
+public class EventRest {
 
     private int meetingKey;
     private int sessionKey;

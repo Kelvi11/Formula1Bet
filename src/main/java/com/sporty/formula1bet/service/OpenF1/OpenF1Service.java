@@ -1,8 +1,14 @@
-package com.sporty.formula1bet.service;
+package com.sporty.formula1bet.service.OpenF1;
 
+import com.sporty.formula1bet.mapper.DriverMapper;
+import com.sporty.formula1bet.mapper.EventMapper;
 import com.sporty.formula1bet.model.Driver;
 import com.sporty.formula1bet.model.Event;
 import com.sporty.formula1bet.rest.utils.UriUtils;
+import com.sporty.formula1bet.service.EventService;
+import com.sporty.formula1bet.service.OpenF1.dto.DriverDto;
+import com.sporty.formula1bet.service.OpenF1.dto.SessionDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,14 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
-public class EventServiceImpl implements EventService{
+public class OpenF1Service implements EventService {
 
+    private final EventMapper eventMapper;
+    private final DriverMapper driverMapper;
     private final WebClient webClient;
-
-    public EventServiceImpl(WebClient webClient) {
-        this.webClient = webClient;
-    }
 
     @Override
     public List<Event> events(String sessionType, Integer year, String countryCode) {
@@ -29,23 +34,27 @@ public class EventServiceImpl implements EventService{
         params.put("year", year);
         params.put("country_code", countryCode);
 
-        List<Event> events = webClient.get()
-                .uri(uriBuilder -> UriUtils.addQueryParams(uriBuilder.path("/sessions"), params).build())
-                .retrieve()
-                .bodyToFlux(Event.class)
-                .collectList()
-                .block();
+        List<Event> events = eventMapper.toEvents(
+                webClient.get()
+                    .uri(uriBuilder -> UriUtils.addQueryParams(uriBuilder.path("/sessions"), params).build())
+                    .retrieve()
+                    .bodyToFlux(SessionDto.class)
+                    .collectList()
+                    .block()
+        );
 
         if (events == null){
             return new ArrayList<>();
         }
 
-        List<Driver> drivers = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/drivers").build())
-                .retrieve()
-                .bodyToFlux(Driver.class)
-                .collectList()
-                .block();
+        List<Driver> drivers = driverMapper.toDrivers(
+                webClient.get()
+                    .uri(uriBuilder -> uriBuilder.path("/drivers").build())
+                    .retrieve()
+                    .bodyToFlux(DriverDto.class)
+                    .collectList()
+                    .block()
+        );
 
         if (drivers == null){
             return events;

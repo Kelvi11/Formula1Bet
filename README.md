@@ -1,2 +1,5 @@
 # Formula1Bet
-This is API written in java that allows the user to get a list of formula 1 events, place a bet on those events and simulate event outcome.
+This is API written in java that allows the users:
+* List of formula 1 events.
+* Place a bet on those events.
+* Simulate event outcome.

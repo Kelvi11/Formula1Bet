@@ -66,8 +66,20 @@ public class OpenF1Service implements EventService {
     private List<Event> enrichEventsWithDriversData(List<Driver> drivers, List<Event> events) {
         Map<Integer, List<Driver>> driversByEvent = drivers.stream().collect(Collectors.groupingBy(Driver::getSessionKey));
 
-        events.forEach(event -> event.setDrivers(driversByEvent.getOrDefault(event.getSessionKey(), new ArrayList<>())));
+        events.forEach(event -> event.setDrivers(driversByEvent.getOrDefault(event.getId(), new ArrayList<>())));
 
         return events;
+    }
+
+    @Override
+    public boolean exists(int id){
+        List<SessionDto> sessionDtos = webClient.get()
+                .uri(uriBuilder -> UriUtils.addQueryParams(uriBuilder.path("/sessions"), Map.of("session_key", id)).build())
+                .retrieve()
+                .bodyToFlux(SessionDto.class)
+                .collectList()
+                .block();
+
+        return sessionDtos != null && sessionDtos.size() == 1;
     }
 }

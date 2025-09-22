@@ -13,15 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/events")
-public class EventsResource {
+public class EventResource {
 
-    private final EventMapper mapper;
+    private final EventMapper eventMapper;
     private final EventService eventService;
 
     @GetMapping
     public ResponseEntity<List<EventRest>> events(@ModelAttribute SearchCriteriaRest searchCriteria){
         return ResponseEntity.ok(
-            mapper.toRest(
+            eventMapper.toRest(
                 eventService.events(
                     searchCriteria.getSessionType(),
                     searchCriteria.getYear(),
@@ -29,11 +29,6 @@ public class EventsResource {
                 )
             )
         );
-    }
-
-    @PostMapping
-    public ResponseEntity placeBet(){
-        return ResponseEntity.ok(List.of());
     }
 
     @PostMapping("/outcome")

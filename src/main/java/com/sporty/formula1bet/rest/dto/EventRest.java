@@ -9,8 +9,9 @@ import java.util.List;
 @Data
 public class EventRest {
 
+    private int id;
+
     private int meetingKey;
-    private int sessionKey;
 
     private String location;
 

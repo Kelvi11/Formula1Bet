@@ -9,9 +9,11 @@ import java.util.List;
 
 @Data
 public class Event {
+
+    private int id;
+
     private int meetingKey;
-    private int sessionKey;
-    
+
     private String location;
     
     private Instant dateStart;

@@ -4,6 +4,7 @@ import com.sporty.formula1bet.model.Event;
 import com.sporty.formula1bet.rest.dto.EventRest;
 import com.sporty.formula1bet.service.OpenF1.dto.SessionDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public interface EventMapper {
 
     List<EventRest> toRest(List<Event> eventList);
 
+    @Mapping(target = "id", source = "sessionKey")
     Event toEvent(SessionDto sessionDto);
 
     List<Event> toEvents(List<SessionDto> sessionDtos);

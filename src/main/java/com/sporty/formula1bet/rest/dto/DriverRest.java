@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DriverRest {
 
-    private int numberId;
+    private int number;
     private String fullName;
     private int odds;
 }

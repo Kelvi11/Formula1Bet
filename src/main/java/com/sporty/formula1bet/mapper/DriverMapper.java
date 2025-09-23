@@ -1,15 +1,16 @@
 package com.sporty.formula1bet.mapper;
 
 import com.sporty.formula1bet.model.Driver;
-import com.sporty.formula1bet.service.OpenF1.dto.DriverDto;
+import com.sporty.formula1bet.service.proxy.dto.DriverDto;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface DriverMapper {
 
-    Driver toDriver(DriverDto driverDto);
-
     List<Driver> toDrivers(List<DriverDto> driverDtos);
+
+    Driver toDriver(DriverDto driverDto);
 }

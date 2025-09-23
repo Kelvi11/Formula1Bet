@@ -1,10 +1,14 @@
 package com.sporty.formula1bet.service;
 
+import com.sporty.formula1bet.model.UserBalance;
+
 import java.math.BigDecimal;
 
 public interface UserBalanceService {
 
-    boolean hasEnoughFunds(int userId, BigDecimal amount);
+    BigDecimal getUserBalance(int userId);
 
-    void subtractsBalance(int userId, BigDecimal amount);
+    UserBalance subtractsBalance(int userId, BigDecimal amount);
+
+    UserBalance addBalance(int userId, BigDecimal amount);
 }

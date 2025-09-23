@@ -15,17 +15,27 @@ public class UserBalanceServiceImpl implements UserBalanceService {
     private final UserBalanceRepository userBalanceRepository;
 
     @Override
-    public boolean hasEnoughFunds(int userId, BigDecimal amount) {
-        return userBalanceRepository.getByUserId(userId).getBalance().compareTo(amount) <= 0;
+    public BigDecimal getUserBalance(int userId) {
+        return userBalanceRepository.getByUserId(userId).getBalance();
     }
 
     @Override
-    public void subtractsBalance(int userId, BigDecimal amount){
+    public UserBalance subtractsBalance(int userId, BigDecimal amount){
 
         UserBalance userBalance = userBalanceRepository.getByUserId(userId);
 
         userBalance.setBalance(userBalance.getBalance().subtract(amount));
 
-        userBalanceRepository.save(userBalance);
+        return userBalanceRepository.save(userBalance);
+    }
+
+    @Override
+    public UserBalance addBalance(int userId, BigDecimal amount) {
+
+        UserBalance userBalance = userBalanceRepository.getByUserId(userId);
+
+        userBalance.setBalance(userBalance.getBalance().add(amount));
+
+        return userBalanceRepository.save(userBalance);
     }
 }

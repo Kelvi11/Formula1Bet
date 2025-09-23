@@ -1,7 +1,7 @@
 package com.sporty.formula1bet.rest.dto;
 
+import com.sporty.formula1bet.rest.validatior.AllowedDriverNumber;
 import com.sporty.formula1bet.rest.validatior.AllowedOdds;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
@@ -15,8 +15,7 @@ public class BetDataRest {
     @Positive(message = "Event id must be positive.")
     private Integer eventId;
 
-    @NotNull(message = "Driver number is required.")
-    @Min(value = 1, message = "Driver number must be at least 1.")
+    @AllowedDriverNumber
     private Integer driverNumber;
 
     @NotNull(message = "Amount is required.")

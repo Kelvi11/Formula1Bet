@@ -8,13 +8,13 @@ import java.util.Random;
 @Getter
 public class Driver {
 
-    private final int numberId;
+    private final int number;
     private final String fullName;
     private final int sessionKey;
     private final int odds;
 
-    public Driver(int numberId, String fullName, int sessionKey) {
-        this.numberId = numberId;
+    public Driver(int number, String fullName, int sessionKey) {
+        this.number = number;
         this.fullName = fullName;
         this.sessionKey = sessionKey;
         this.odds = odds();

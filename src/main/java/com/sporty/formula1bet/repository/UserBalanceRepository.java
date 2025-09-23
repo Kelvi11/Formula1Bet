@@ -5,5 +5,5 @@ import com.sporty.formula1bet.model.UserBalance;
 public interface UserBalanceRepository {
     UserBalance getByUserId(int userId);
 
-    void save(UserBalance userBalance);
+    UserBalance save(UserBalance userBalance);
 }

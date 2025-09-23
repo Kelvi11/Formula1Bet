@@ -33,6 +33,8 @@ public class Bet {
      */
     private int odds;
 
+    private int userId;
+
     public BigDecimal winningAmount(){
         return amount.multiply(BigDecimal.valueOf(odds));
     }

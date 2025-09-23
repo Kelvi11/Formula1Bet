@@ -1,4 +1,4 @@
-package com.sporty.formula1bet.service.OpenF1.dto;
+package com.sporty.formula1bet.service.proxy.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

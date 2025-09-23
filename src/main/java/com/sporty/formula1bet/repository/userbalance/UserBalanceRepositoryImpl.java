@@ -25,7 +25,8 @@ public class UserBalanceRepositoryImpl implements UserBalanceRepository {
     }
 
     @Override
-    public void save(UserBalance userBalance) {
+    public UserBalance save(UserBalance userBalance) {
         userBalances.put(userBalance.getUserId(), userBalance);
+        return userBalance;
     }
 }

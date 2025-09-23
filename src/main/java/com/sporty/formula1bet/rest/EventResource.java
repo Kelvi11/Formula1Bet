@@ -34,7 +34,7 @@ public class EventResource {
     }
 
     @PostMapping("/outcome")
-    public ResponseEntity outcome(@RequestBody @Valid EventOutcomeDataRest eventOutcomeDataRest) throws Exception {
+    public ResponseEntity<Void> outcome(@RequestBody @Valid EventOutcomeDataRest eventOutcomeDataRest) throws Exception {
         eventService.outcome(
                 eventMapper.toEventOutcome(eventOutcomeDataRest)
         );

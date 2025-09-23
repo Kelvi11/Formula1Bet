@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class EventServiceImpl implements EventService {
     private final EventOutcomeRepository eventOutcomeRepository;
 
     @Override
-    public List<Event> events(String sessionType, Integer year, String countryCode) {
+    public List<Event> events(String sessionType, Integer year, String countryCode, int offset, int size) {
 
         List<Event> events = eventMapper.toEvents(
                 open1Proxy.sessions(sessionType, year, countryCode)
@@ -49,15 +50,22 @@ public class EventServiceImpl implements EventService {
             return events;
         }
 
-        return enrichEventsWithDriversData(drivers, events);
+        return paginate(enrichEventsWithDriversData(drivers, events), offset, size);
     }
 
     private List<Event> enrichEventsWithDriversData(List<Driver> drivers, List<Event> events) {
         Map<Integer, List<Driver>> driversByEvent = drivers.stream().collect(Collectors.groupingBy(Driver::getSessionKey));
-
         events.forEach(event -> event.setDrivers(driversByEvent.getOrDefault(event.getId(), new ArrayList<>())));
-
         return events;
+    }
+
+
+    private List<Event> paginate(List<Event> events, int offset, int size){
+        return events.stream()
+                .sorted(Comparator.comparing(Event::getDateStart).reversed())
+                .skip(offset)
+                .limit(size)
+                .toList();
     }
 
 

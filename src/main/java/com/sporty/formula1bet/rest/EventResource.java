@@ -27,7 +27,9 @@ public class EventResource {
                 eventService.events(
                     searchCriteria.getSessionType(),
                     searchCriteria.getYear(),
-                    searchCriteria.getCountryCode()
+                    searchCriteria.getCountryCode(),
+                    searchCriteria.getOffset(),
+                    searchCriteria.getSize()
                 )
             )
         );

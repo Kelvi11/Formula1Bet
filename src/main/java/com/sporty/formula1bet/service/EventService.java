@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EventService {
 
-    List<Event> events(String sessionType, Integer year, String countryCode);
+    List<Event> events(String sessionType, Integer year, String countryCode, int offset, int size);
 
     void outcome(EventOutcome eventOutcome) throws Exception;
 }
